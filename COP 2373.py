@@ -1,5 +1,5 @@
 def sell_tickets():
-    remaining_tickets = 20
+    remaining_tickets = 10
     total_buyers = 0
     while remaining_tickets > 0:
         print("\nTickets remaining:", remaining_tickets)
