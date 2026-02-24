@@ -1,17 +1,31 @@
-def sell_tickets():
-    remaining_tickets = 10
-    total_buyers = 0
-    while remaining_tickets > 0:
-        print("\nTickets remaining:", remaining_tickets)
-        tickets = int(input("How many tickets would you like to purchase today? (1-4): "))
-        if tickets >= 1 and tickets <= 4 and tickets <= remaining_tickets:
-            remaining_tickets = remaining_tickets - tickets
-            total_buyers = total_buyers + 1
-            print("Tickets remaining after purchase:", remaining_tickets)
-        else:
-            print("Invalid number of tickets.")
-    print("\nAll tickets sold out!")
-    print("Total number of buyers:", total_buyers)
+from functools import reduce
 
-if __name__ == "__main__":
-    sell_tickets()
+def main():
+    print("Monthly Expense Analyzer")
+    print("------------------------")
+
+    expenses = []
+
+    count = int(input("How many expenses would you like to enter? "))
+
+    for i in range(count):
+        print(f"\nExpense #{i+1}")
+        expense_type = input("Enter expense type: ")
+        amount = float(input("Enter expense amount: $"))
+
+        expenses.append((expense_type, amount))
+
+    total = reduce(lambda acc, exp: acc + exp[1], expenses, 0)
+
+    highest = reduce(lambda a, b: a if a[1] > b[1] else b, expenses)
+
+    lowest = reduce(lambda a, b: a if a[1] < b[1] else b, expenses)
+
+    print("\nExpense Summary")
+    print("----------------")
+    print(f"Total Expenses: ${total:.2f}")
+    print(f"Highest Expense: {highest[0]} (${highest[1]:.2f})")
+    print(f"Lowest Expense: {lowest[0]} (${lowest[1]:.2f})")
+
+
+main()
