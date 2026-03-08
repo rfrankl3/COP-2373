@@ -1,31 +1,63 @@
-from functools import reduce
+import re
+
+# function to check phone number
+def check_phone(phone):
+
+    pattern = r"\d{3}-\d{3}-\d{4}"
+
+    if re.fullmatch(pattern, phone):
+        return True
+    else:
+        return False
+
+
+# function to check social security number
+def check_ssn(ssn):
+
+    pattern = r"\d{3}-\d{2}-\d{4}"
+
+    if re.fullmatch(pattern, ssn):
+        return True
+    else:
+        return False
+
+
+# function to check zip code
+def check_zip(zip_code):
+
+    pattern = r"\d{5}(-\d{4})?"
+
+    if re.fullmatch(pattern, zip_code):
+        return True
+    else:
+        return False
+
 
 def main():
-    print("Monthly Expense Analyzer")
-    print("------------------------")
 
-    expenses = []
+    print("Validation Program\n")
 
-    count = int(input("How many expenses would you like to enter? "))
+    phone = input("Enter a phone number (XXX-XXX-XXXX): ")
+    ssn = input("Enter a Social Security Number (XXX-XX-XXXX): ")
+    zip_code = input("Enter a ZIP Code (XXXXX or XXXXX-XXXX): ")
 
-    for i in range(count):
-        print(f"\nExpense #{i+1}")
-        expense_type = input("Enter expense type: ")
-        amount = float(input("Enter expense amount: $"))
+    print("\nResults:")
 
-        expenses.append((expense_type, amount))
+    if check_phone(phone):
+        print("Phone number is valid")
+    else:
+        print("Phone number is invalid")
 
-    total = reduce(lambda acc, exp: acc + exp[1], expenses, 0)
+    if check_ssn(ssn):
+        print("SSN is valid")
+    else:
+        print("SSN is invalid")
 
-    highest = reduce(lambda a, b: a if a[1] > b[1] else b, expenses)
-
-    lowest = reduce(lambda a, b: a if a[1] < b[1] else b, expenses)
-
-    print("\nExpense Summary")
-    print("----------------")
-    print(f"Total Expenses: ${total:.2f}")
-    print(f"Highest Expense: {highest[0]} (${highest[1]:.2f})")
-    print(f"Lowest Expense: {lowest[0]} (${lowest[1]:.2f})")
+    if check_zip(zip_code):
+        print("ZIP code is valid")
+    else:
+        print("ZIP code is invalid")
 
 
+# run the program
 main()
