@@ -1,63 +1,24 @@
 import re
 
-# function to check phone number
-def check_phone(phone):
-
-    pattern = r"\d{3}-\d{3}-\d{4}"
-
-    if re.fullmatch(pattern, phone):
-        return True
-    else:
-        return False
+def split_into_sentences(paragraph):
+    sentences = re.split(r'(?<=[.!?])\s+', paragraph)
+    sentences = [s.strip() for s in sentences if s.strip() != ""]
+    return sentences
 
 
-# function to check social security number
-def check_ssn(ssn):
+def display_sentences(sentences):
+    print("\nIndividual Sentences:\n")
 
-    pattern = r"\d{3}-\d{2}-\d{4}"
+    for i, sentence in enumerate(sentences, start=1):
+        print(f"Sentence {i}: {sentence}")
 
-    if re.fullmatch(pattern, ssn):
-        return True
-    else:
-        return False
-
-
-# function to check zip code
-def check_zip(zip_code):
-
-    pattern = r"\d{5}(-\d{4})?"
-
-    if re.fullmatch(pattern, zip_code):
-        return True
-    else:
-        return False
+    print("\nTotal number of sentences:", len(sentences))
 
 
 def main():
-
-    print("Validation Program\n")
-
-    phone = input("Enter a phone number (XXX-XXX-XXXX): ")
-    ssn = input("Enter a Social Security Number (XXX-XX-XXXX): ")
-    zip_code = input("Enter a ZIP Code (XXXXX or XXXXX-XXXX): ")
-
-    print("\nResults:")
-
-    if check_phone(phone):
-        print("Phone number is valid")
-    else:
-        print("Phone number is invalid")
-
-    if check_ssn(ssn):
-        print("SSN is valid")
-    else:
-        print("SSN is invalid")
-
-    if check_zip(zip_code):
-        print("ZIP code is valid")
-    else:
-        print("ZIP code is invalid")
+    paragraph = input("Enter a paragraph:\n")
+    sentences = split_into_sentences(paragraph)
+    display_sentences(sentences)
 
 
-# run the program
 main()
