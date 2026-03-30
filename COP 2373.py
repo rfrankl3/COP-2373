@@ -1,24 +1,36 @@
-import re
-
-def split_into_sentences(paragraph):
-    sentences = re.split(r'(?<=[.!?])\s+', paragraph)
-    sentences = [s.strip() for s in sentences if s.strip() != ""]
-    return sentences
+import csv
 
 
-def display_sentences(sentences):
-    print("\nIndividual Sentences:\n")
+def write_grades_to_csv():
+    num_students = int(input())
 
-    for i, sentence in enumerate(sentences, start=1):
-        print(f"Sentence {i}: {sentence}")
+    with open("grades.csv", "w", newline="") as file:
+        writer = csv.writer(file)
 
-    print("\nTotal number of sentences:", len(sentences))
+        writer.writerow(["First Name", "Last Name", "Exam 1", "Exam 2", "Exam 3"])
+
+        for _ in range(num_students):
+            first_name = input()
+            last_name = input()
+            exam1 = int(input())
+            exam2 = int(input())
+            exam3 = int(input())
+
+            writer.writerow([first_name, last_name, exam1, exam2, exam3])
+
+
+def read_grades_from_csv():
+    with open("grades.csv", "r") as file:
+        reader = csv.reader(file)
+
+        for row in reader:
+            print("{:<15} {:<15} {:<10} {:<10} {:<10}".format(*row))
 
 
 def main():
-    paragraph = input("Enter a paragraph:\n")
-    sentences = split_into_sentences(paragraph)
-    display_sentences(sentences)
+    write_grades_to_csv()
+    read_grades_from_csv()
 
 
-main()
+if __name__ == "__main__":
+    main()
