@@ -1,46 +1,64 @@
-def get_tickets_remaining(tickets_remaining):
-    """
-    Prompts user for number of tickets and validates input
-    """
-    while True:
-        try:
-            tickets = int(input("How many tickets would you like to purchase? (1-4): "))
+# Spam Detection Program
 
-            if tickets < 1 or tickets > 4:
-                print("You can only buy between 1 and 4 tickets.")
-            elif tickets > tickets_remaining:
-                print("Not enough tickets remaining.")
-            else:
-                return tickets
+def calculate_spam_score(message):
+    spam_keywords = [
+        "free", "win", "winner", "cash", "prize",
+        "claim now", "urgent", "act now", "limited time", "risk free",
+        "guaranteed", "no obligation", "click here", "subscribe now",
+        "buy now", "order now", "exclusive deal", "congratulations",
+        "you have been selected", "earn money", "work from home",
+        "double your income", "investment opportunity", "credit card",
+        "debt relief", "loan approval", "cheap", "discount",
+        "save big", "100% free"
+    ]
 
-        except ValueError:
-            print("Invalid input. Please enter a number.")
+    message = message.lower()
+    score = 0
+    found_keywords = {}
+
+    for keyword in spam_keywords:
+        count = message.count(keyword)
+        if count > 0:
+            score += count
+            found_keywords[keyword] = count
+
+    return score, found_keywords
 
 
-def sell_tickets():
-    """
-    Manages ticket selling process
-    """
-    tickets_remaining = 10
-    buyer_count = 0  # accumulator
+def get_spam_rating(score):
+    if score <= 2:
+        return "Low likelihood of spam"
+    elif score <= 6:
+        return "Moderate likelihood of spam"
+    elif score <= 10:
+        return "High likelihood of spam"
+    else:
+        return "Very high likelihood of spam"
 
-    while tickets_remaining > 0:
-        print("\nTickets remaining:", tickets_remaining)
 
-        tickets_bought = get_tickets_remaining(tickets_remaining)
+def display_results(score, rating, found_keywords):
+    print("\n--- Spam Analysis Results ---")
+    print(f"Spam Score: {score}")
+    print(f"Spam Likelihood: {rating}")
 
-        tickets_remaining = tickets_remaining - tickets_bought
-        buyer_count = buyer_count + 1
-
-        print("Purchase successful!")
-        print("Tickets remaining after purchase:", tickets_remaining)
-
-    print("\nAll tickets have been sold!")
-    print("Total number of buyers:", buyer_count)
+    if found_keywords:
+        print("\nDetected Spam Words/Phrases:")
+        for word, count in found_keywords.items():
+            print(f"- '{word}' found {count} time(s)")
+    else:
+        print("\nNo spam keywords detected.")
 
 
 def main():
-    sell_tickets()
+    print("Spam Email Detector")
+    print("--------------------")
+
+    user_message = input("Enter an email message:\n")
+
+    score, found_keywords = calculate_spam_score(user_message)
+    rating = get_spam_rating(score)
+
+    display_results(score, rating, found_keywords)
 
 
 if __name__ == "__main__":
