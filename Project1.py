@@ -22,7 +22,7 @@ def sell_tickets():
     Manages ticket selling process
     """
     tickets_remaining = 10
-    total_buyers = 0  # accumulator
+    buyer_count = 0
 
     while tickets_remaining > 0:
         print("\nTickets remaining:", tickets_remaining)
