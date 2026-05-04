@@ -4,7 +4,7 @@ def get_tickets_remaining(tickets_remaining):
     """
     while True:
         try:
-            tickets = int(input("Enter number of tickets to buy (1-4): "))
+            tickets = int(input("How many tickets would you like to purchase? (1-4): "))
 
             if tickets < 1 or tickets > 4:
                 print("You can only buy between 1 and 4 tickets.")
