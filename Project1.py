@@ -13,7 +13,7 @@ def get_tickets_remaining(tickets_remaining):
             else:
                 return tickets
 
-        except ValueError:4
+        except ValueError:
             print("Invalid input. Please enter a number.")
 
 
@@ -22,7 +22,7 @@ def sell_tickets():
     Manages ticket selling process
     """
     tickets_remaining = 10
-    buyer_count = 0
+    buyer_count = 0  # accumulator
 
     while tickets_remaining > 0:
         print("\nTickets remaining:", tickets_remaining)
@@ -30,13 +30,13 @@ def sell_tickets():
         tickets_bought = get_tickets_remaining(tickets_remaining)
 
         tickets_remaining = tickets_remaining - tickets_bought
-        total_buyers = total_buyers + 1
+        buyer_count = buyer_count + 1
 
         print("Purchase successful!")
         print("Tickets remaining after purchase:", tickets_remaining)
 
     print("\nAll tickets have been sold!")
-    print("Total number of buyers:", total_buyers)
+    print("Total number of buyers:", buyer_count)
 
 
 def main():
